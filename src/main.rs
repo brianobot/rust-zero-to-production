@@ -1,4 +1,8 @@
-use actix_web::{App, HttpRequest, HttpServer, Responder, get};
+use actix_web::{App, HttpRequest, HttpResponse, HttpServer, Responder, get, web};
+
+async fn health_check() -> impl Responder {
+    HttpResponse::Ok()
+}
 
 #[get("/")]
 async fn greet(req: HttpRequest) -> impl Responder {
@@ -6,10 +10,14 @@ async fn greet(req: HttpRequest) -> impl Responder {
     format!("Hello {}!", &name)
 }
 
-#[actix_web::main]
+#[tokio::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(greet))
-        .bind("127.0.0.1:8000")?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .service(greet)
+            .route("/health-check", web::get().to(health_check))
+    })
+    .bind("127.0.0.1:8000")?
+    .run()
+    .await
 }
