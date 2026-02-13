@@ -48,3 +48,14 @@ Life Cycles of a Socket
   - Route combines a handler and a set of guards, guards specify conditions a request must satisfy in other to match and be passed over to the handler
     - Route with guard example -> Route::new().guard(guard::Get()) 
     - this above Route can be written as a short-cut web::get().to(handler_func)
+
+
+## Notes:
+- Extractors: Extractors are used to extract information from incoming request in actix-web handler function signature
+
+An extractor can be accessed as an argument to a handler function. Actix-web supports up
+to 10 extractors per handler function. Argument position does not matter.
+
+- Before calling the handler function, actix-web invokes from_request for all the argument passed to the handler function.
+  - Example of those argument include, form: Form<T>, req: HttpRequest, json: Json<T>, query: Query<T>, where all T: Deserialize
+  - at this point, if this process fails, a 400 response is returned to the caller else the function is invoked
