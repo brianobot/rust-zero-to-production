@@ -10,5 +10,7 @@ pub async fn health_check() -> impl Responder {
     );
     let _request_span_guard = request_span.enter();
 
+    let _query_span = tracing::info_span!("About to Enter a Query Span");
+
     HttpResponse::Ok()
 }

@@ -59,3 +59,12 @@ to 10 extractors per handler function. Argument position does not matter.
 - Before calling the handler function, actix-web invokes from_request for all the argument passed to the handler function.
   - Example of those argument include, form: Form<T>, req: HttpRequest, json: Json<T>, query: Query<T>, where all T: Deserialize
   - at this point, if this process fails, a 400 response is returned to the caller else the function is invoked
+
+- Tracing: This is a framework of for instrumenting Rust Programs to collect, structured, event based diagnostic information
+  - Unlike regular logs that simply represent a point in time of execution, a trace span represents a span of time of execution
+  with a beginning and an end
+  
+  # Why tracing over the regular logging
+  - it becomes very difficult to make sense of program log flow when working in an async environment when the logs
+  for the execution of different part of the programs are mixed, because the async components of the program can be paused and resumed
+  in a non-deterministic way, because of this, having a different way to represent temporal region is introduced in the form of tracing.
