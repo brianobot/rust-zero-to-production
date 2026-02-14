@@ -12,11 +12,12 @@ name = "zero_to_production"
 
 [dependencies]
 actix-web = "4.12.1"
+chrono = "0.4.43"
 serde = { version = "1.0.228", features = ["derive"] }
-sqlx = "0.8.6"
-# sqlx = { version = "0.8.6", features = ["runtime-actix-rustls", "postgres", "uuid", "chrono", "migrate", "macros"]}
+sqlx = { version = "0.8.6", features =  ["postgres", "uuid", "chrono", "migrate", "macros"]}
 sqlx-cli = { version = "0.8.6", default-features = false, features = ["postgres"] }
 tokio = { version = "1.49.0", features=["rt-multi-thread", "macros"]}
+uuid = { version = "1.20.0", features=["v4"]}
 
 [dev-dependencies]
 reqwest = "0.13.2"
